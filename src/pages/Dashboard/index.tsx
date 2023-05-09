@@ -1,20 +1,13 @@
 import { useEffect, useState } from 'react';
 import {FoodsContainer} from './styles';
 import api from '../../services/api';
+import { Food as FoodInterface} from '../../interfaces/Food';
 import { Header } from '../../components/Header';
 import { Food } from '../../components/Food';
 
-interface Food {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    available: boolean;
-    image: string; 
-}
 
 export function Dashboard() {
-    const [foods, setFoods] = useState<Food[]>([])
+    const [foods, setFoods] = useState<FoodInterface[]>([])
     const [isAddFoodModalOpen, setIsAddFoodModalOpen] = useState(false);
 
     useEffect(() => {

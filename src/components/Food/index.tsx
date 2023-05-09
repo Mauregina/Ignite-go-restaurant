@@ -1,31 +1,37 @@
 import { useState } from 'react';
+import { FiEdit3, FiTrash } from 'react-icons/fi';
 import { Container } from './styles';
+import api from '../../services/api';
+import { Food as FoodInterface} from '../../interfaces/Food';
 
-interface Food {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    available: boolean;
-    image: string; 
-}
 
 interface FoodProps {
-    key: number;
-    food: Food;
+    food: FoodInterface;
     handleDelete: () => void;
     handleEditFood: () => void;
 }
 
-export function Food({ key, food, handleDelete, handleEditFood }: FoodProps) {
-    const [isAvailable, setIsAvailable] = useState(false);  
+export function Food({ food, handleDelete, handleEditFood }: FoodProps) {
+    const [isAvailable, setIsAvailable] = useState(food.available);  
+
+    const handleChangeAvailable = async () => {
+      try {
+        await api.put(`/foods/${food.id}`, {
+          ...food,
+          available: !isAvailable,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      setIsAvailable(!isAvailable);
+    }
 
     return (
       <Container available={isAvailable}>
         <header>
           <img src={food.image} alt={food.name} />
         </header>
-        {/* <section className="body">
+        <section className="body">
           <h2>{food.name}</h2>
           <p>{food.description}</p>
           <p className="price">
@@ -34,7 +40,7 @@ export function Food({ key, food, handleDelete, handleEditFood }: FoodProps) {
         </section>
         <section className="footer">
           <div className="icon-container">
-            <button
+            {/* <button
               type="button"
               className="icon"
               onClick={this.setEditingFood}
@@ -50,7 +56,7 @@ export function Food({ key, food, handleDelete, handleEditFood }: FoodProps) {
               data-testid={`remove-food-${food.id}`}
             >
               <FiTrash size={20} />
-            </button>
+            </button> */}
           </div>
 
           <div className="availability-container">
@@ -61,13 +67,13 @@ export function Food({ key, food, handleDelete, handleEditFood }: FoodProps) {
                 id={`available-switch-${food.id}`}
                 type="checkbox"
                 checked={isAvailable}
-                onChange={this.toggleAvailable}
+                onChange={handleChangeAvailable}
                 data-testid={`change-status-food-${food.id}`}
               />
               <span className="slider" />
             </label>
           </div>
-        </section> */}
+        </section>
       </Container>
     );
 }
