@@ -7,11 +7,11 @@ import { Food as FoodInterface} from '../../interfaces/Food';
 
 interface FoodProps {
     food: FoodInterface;
-    handleDelete: () => void;
+    handleDeleteFood: (id: number) => void;
     handleEditFood: () => void;
 }
 
-export function Food({ food, handleDelete, handleEditFood }: FoodProps) {
+export function Food({ food, handleDeleteFood, handleEditFood }: FoodProps) {
     const [isAvailable, setIsAvailable] = useState(food.available);  
 
     const handleChangeAvailable = async () => {
@@ -40,10 +40,10 @@ export function Food({ food, handleDelete, handleEditFood }: FoodProps) {
         </section>
         <section className="footer">
           <div className="icon-container">
-            {/* <button
+            <button
               type="button"
               className="icon"
-              onClick={this.setEditingFood}
+              // onClick={this.setEditingFood}
               data-testid={`edit-food-${food.id}`}
             >
               <FiEdit3 size={20} />
@@ -52,11 +52,11 @@ export function Food({ food, handleDelete, handleEditFood }: FoodProps) {
             <button
               type="button"
               className="icon"
-              onClick={() => handleDelete(food.id)}
+              onClick={() => handleDeleteFood(food.id)}
               data-testid={`remove-food-${food.id}`}
             >
               <FiTrash size={20} />
-            </button> */}
+            </button>
           </div>
 
           <div className="availability-container">

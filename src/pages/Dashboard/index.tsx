@@ -13,7 +13,6 @@ export function Dashboard() {
     useEffect(() => {
         async function getFood() {
             const response = await api.get('/foods');
-            console.log(response.data);
             setFoods(response.data);
         }
         getFood();
@@ -27,8 +26,13 @@ export function Dashboard() {
         setIsAddFoodModalOpen(false);
     }
 
-    const handleDeleteFood = () => {
-        console.log('deleta');
+    const handleDeleteFood = async (id: number) => {
+        try {
+            await api.delete(`/foods/${id}`);
+            setFoods(foods.filter(food => food.id !== id)); 
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const handleEditFood = () => {
@@ -44,7 +48,7 @@ export function Dashboard() {
                     <Food
                         key={food.id}
                         food={food}
-                        handleDelete={handleDeleteFood}
+                        handleDeleteFood={handleDeleteFood}
                         handleEditFood={handleEditFood}
                     />
                 ))}
