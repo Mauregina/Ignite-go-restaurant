@@ -48,8 +48,8 @@ export function Dashboard() {
                     <Food
                         key={food.id}
                         food={food}
-                        handleDeleteFood={handleDeleteFood}
-                        handleEditFood={handleEditFood}
+                        onDeleteFood={handleDeleteFood}
+                        onEditFood={handleEditFood}
                     />
                 ))}
             </FoodsContainer>    

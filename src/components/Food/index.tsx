@@ -7,11 +7,11 @@ import { Food as FoodInterface} from '../../interfaces/Food';
 
 interface FoodProps {
     food: FoodInterface;
-    handleDeleteFood: (id: number) => void;
-    handleEditFood: () => void;
+    onDeleteFood: (id: number) => void;
+    onEditFood: () => void;
 }
 
-export function Food({ food, handleDeleteFood, handleEditFood }: FoodProps) {
+export function Food({ food, onDeleteFood, onEditFood }: FoodProps) {
     const [isAvailable, setIsAvailable] = useState(food.available);  
 
     const handleChangeAvailable = async () => {
@@ -52,7 +52,7 @@ export function Food({ food, handleDeleteFood, handleEditFood }: FoodProps) {
             <button
               type="button"
               className="icon"
-              onClick={() => handleDeleteFood(food.id)}
+              onClick={() => onDeleteFood(food.id)}
               data-testid={`remove-food-${food.id}`}
             >
               <FiTrash size={20} />
